@@ -13,13 +13,13 @@ export default function Input({ type, className, ...props }: Props) {
     return (
       <div
         className={twMerge(
-          "flex justify-between items-center border-b focus-within:border-cyan-500 border-body w-full gap-4 text-heading mb-3",
+          "flex justify-between items-center border-b focus-within:border-cyan-500 border-placeholder w-full gap-4 text-heading",
           className
         )}
       >
         <input
           {...props}
-          className="w-full  placeholder:text-body outline-none text-base py-1"
+          className="w-full  placeholder:text-placeholder outline-none text-base py-1"
           type={isShowing ? "text" : "password"}
         />
         <button
@@ -36,7 +36,7 @@ export default function Input({ type, className, ...props }: Props) {
     <input
       {...props}
       className={twMerge(
-        "w-full block border-b border-body placeholder:text-body text-heading focus:border-cyan-500 outline-none text-base py-1 mb-3",
+        "w-full block border-b border-placeholder placeholder:text-placeholder text-heading focus:border-cyan-500 outline-none text-base py-1",
         className
       )}
       type={type}
