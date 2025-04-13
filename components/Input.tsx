@@ -23,7 +23,7 @@ export default function Input({ type, className, ...props }: Props) {
           type={isShowing ? "text" : "password"}
         />
         <button
-          className="focus-visible:outline-1 cursor-pointer text-lg"
+          className="focus-visible:outline-1 outline-offset-4 rounded-full cursor-pointer text-lg"
           onClick={() => setShowing(!isShowing)}
           type="button"
         >
