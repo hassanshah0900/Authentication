@@ -25,7 +25,16 @@ export async function updateSession(req: NextRequest) {
     }
   );
 
-  const { data, error } = await supabase.auth.getUser();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (!user && !req.nextUrl.pathname.startsWith("/auth")) {
+    const url = req.nextUrl.clone();
+    url.pathname = "/auth/signin";
+    return NextResponse.redirect(url);
+  }
 
   return supabaseResponse;
 }
