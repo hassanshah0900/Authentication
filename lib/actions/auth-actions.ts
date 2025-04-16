@@ -72,7 +72,7 @@ export async function signup(prevState: AuthState, formData: FormData) {
     return { error: error.message };
   }
 
-  redirect("/check-email");
+  redirect("/auth/check-email");
 }
 
 export async function signin(prevState: AuthState, formData: FormData) {

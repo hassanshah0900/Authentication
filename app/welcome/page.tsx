@@ -9,7 +9,7 @@ export default async function WelcomePage() {
     data: { user },
     error,
   } = await supabase.auth.getUser();
-  if (!user) redirect("/signin");
+  if (!user) redirect("/auth/signin");
 
   return (
     <main className="flex justify-center h-screen">
