@@ -1,6 +1,8 @@
 "use server";
 
+import { createClient } from "@/utils/supabase/server";
 import { getFormFieldValue } from "@/utils/utilityFunctions";
+import { redirect } from "next/navigation";
 import z from "zod";
 
 export interface AuthState {
@@ -48,12 +50,29 @@ export async function signup(prevState: AuthState, formData: FormData) {
 
   if (!validatedFields.success) {
     return {
+      success: false,
       data: formData,
       validationErrors: validatedFields.error.flatten().fieldErrors,
     };
   }
 
-  return { success: true };
+  const { name, email, password } = validatedFields.data;
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { data: { name } },
+  });
+  if (error) {
+    console.log(error);
+    return { error: error.message };
+  }
+
+  redirect("/check-email");
 }
 
 export async function signin(prevState: AuthState, formData: FormData) {
@@ -69,5 +88,18 @@ export async function signin(prevState: AuthState, formData: FormData) {
     };
   }
 
-  return { success: true };
+  const { email, password } = validatedFields.data;
+
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    console.log(error);
+    return { error: error.message };
+  }
+
+  redirect("/welcome");
 }
