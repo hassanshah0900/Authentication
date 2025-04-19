@@ -19,7 +19,7 @@ export default function Button({
         href={href}
         {...props}
         className={twMerge(
-          "inline-block bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white uppercase py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 outline-1 outline-offset-2",
+          "inline-block bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white uppercase py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 focus-visible:outline-1 focus-visible:outline-offset-2",
           className
         )}
       >
@@ -33,13 +33,13 @@ export default function Button({
       {...props}
       disabled={isPending}
       className={twMerge(
-        "flex justify-center items-center bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white uppercase py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 outline-1 outline-offset-2",
+        "flex justify-center items-center bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white uppercase py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 focus-visible:outline-1 focus-visible:outline-offset-2",
         isPending && "cursor-not-allowed",
         className
       )}
     >
       {isPending ? (
-        <div className="w-6 h-6 border-4 border-white/20 border-r-white rounded-full animate-spin"></div>
+        <div className="w-5 h-5 border-[3px] border-white/20 border-r-white rounded-full animate-spin"></div>
       ) : (
         children
       )}
