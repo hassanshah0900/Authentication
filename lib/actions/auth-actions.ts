@@ -1,5 +1,6 @@
 "use server";
 
+import { createAdminClient } from "@/utils/supabase/admin";
 import { createClient } from "@/utils/supabase/server";
 import { getFormFieldValue } from "@/utils/utilityFunctions";
 import { redirect } from "next/navigation";
@@ -46,8 +47,6 @@ export async function signup(prevState: AuthState, formData: FormData) {
     password: getFormFieldValue(formData.get("password")),
   });
 
-  console.log(formData.get("name"));
-
   if (!validatedFields.success) {
     return {
       success: false,
@@ -65,12 +64,16 @@ export async function signup(prevState: AuthState, formData: FormData) {
   } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { name } },
+    options: {
+      data: { name },
+      emailRedirectTo: "http://localhost:3000/welcome",
+    },
   });
   if (error) {
     console.log(error);
     return { error: error.message };
   }
+  console.log(error);
 
   redirect("/auth/check-email");
 }
@@ -102,4 +105,29 @@ export async function signin(prevState: AuthState, formData: FormData) {
   }
 
   redirect("/welcome");
+}
+
+export async function signout() {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    return { error: error.message };
+  }
+}
+
+export async function deleteAccount() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { error: "You are not logged in." };
+
+  const supabaseAdmin = await createAdminClient();
+  const { error } = await supabaseAdmin.auth.admin.deleteUser(user.id);
+  if (error) {
+    console.log(error);
+    return { error: error.message };
+  }
 }
