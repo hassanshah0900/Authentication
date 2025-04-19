@@ -31,8 +31,10 @@ export default function Button({
   return (
     <button
       {...props}
+      disabled={isPending}
       className={twMerge(
         "flex justify-center items-center bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white uppercase py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 outline-1 outline-offset-2",
+        isPending && "cursor-not-allowed",
         className
       )}
     >
