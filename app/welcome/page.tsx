@@ -1,5 +1,7 @@
 import Button from "@/components/Button";
+import DeleteAccountButton from "@/components/DeleteAccountButton";
 import GradientHeading from "@/components/GradientHeading";
+import SignoutButton from "@/components/SignoutButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
@@ -18,12 +20,8 @@ export default async function WelcomePage() {
           Welcome {user.user_metadata.name ?? "Brother"}!
         </GradientHeading>
         <div className="flex gap-4 justify-center mt-10">
-          <form action="">
-            <Button>Logout</Button>
-          </form>
-          <form action="">
-            <Button>Delete Account</Button>
-          </form>
+          <SignoutButton />
+          <DeleteAccountButton />
         </div>
       </div>
     </main>
