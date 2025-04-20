@@ -19,7 +19,7 @@ export default function Button({
         href={href}
         {...props}
         className={twMerge(
-          "inline-block bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white uppercase py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 focus-visible:outline-1 focus-visible:outline-offset-2",
+          "flex justify-center items-center bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white capitalize py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 focus-visible:outline-1 focus-visible:outline-offset-2",
           className
         )}
       >
@@ -33,7 +33,7 @@ export default function Button({
       {...props}
       disabled={isPending}
       className={twMerge(
-        "flex justify-center items-center bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white uppercase py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 focus-visible:outline-1 focus-visible:outline-offset-2",
+        "flex justify-center items-center bg-gradient-to-r text-sm from-cyan-500 to-pink-500 text-white capitalize py-3 px-8 cursor-pointer font-semibold rounded-full w-full focus-visible:outline-cyan-500 focus-visible:outline-1 focus-visible:outline-offset-2",
         isPending && "cursor-not-allowed",
         className
       )}
