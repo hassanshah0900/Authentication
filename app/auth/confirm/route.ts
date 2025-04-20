@@ -21,7 +21,9 @@ export async function GET(request: NextRequest) {
   });
 
   if (error) {
-    throw error;
+    redirect(
+      `/auth/auth-code-error?error=${error.code}&error_description=${error.message}`
+    );
   }
 
   redirect(next);
