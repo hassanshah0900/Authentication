@@ -122,3 +122,15 @@ export async function deleteAccount() {
 
   redirect("/auth/signin");
 }
+
+export async function signinWithProvider(providerId: "github" | "google") {
+  const supabase = await createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: providerId,
+    options: { redirectTo: "http://localhost:3000/auth/callback" },
+  });
+
+  if (error) return { error: error.code };
+
+  redirect(data.url);
+}
