@@ -1,4 +1,3 @@
-import Button from "@/components/Button";
 import DeleteAccountButton from "@/components/DeleteAccountButton";
 import GradientHeading from "@/components/GradientHeading";
 import SignoutButton from "@/components/SignoutButton";

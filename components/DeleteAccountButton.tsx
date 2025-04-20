@@ -4,13 +4,14 @@ import { deleteAccount } from "@/lib/actions/auth-actions";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
 import ConfirmModal from "./ConfirmModal";
+import { supabaseErrorMap } from "@/utils/supabase/errorMap";
 
 export default function DeleteAccountButton() {
   const [isPending, startTransition] = useTransition();
   function handleAccountDelete() {
     startTransition(async () => {
-      const state = await deleteAccount();
-      if (state?.error) toast(state.error, { type: "error" });
+      const error = (await deleteAccount())?.error;
+      if (error) toast(supabaseErrorMap[error] ?? error, { type: "error" });
     });
   }
 
