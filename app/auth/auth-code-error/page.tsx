@@ -8,14 +8,14 @@ export default async function ErrorPage({
 }: {
   searchParams: Promise<{ [key: string]: string }>;
 }) {
-  const { error = "", error_description = "" } = await searchParams;
+  const { error = "", error_description = "", type = "" } = await searchParams;
 
   return (
     <Card className="mt-20">
       <GradientHeading>
         {supabaseErrorMap[error] || error_description}
       </GradientHeading>
-      {error === "otp_expired" && (
+      {error === "otp_expired" && type === "email" && (
         <>
           <p className="text-body text-center text-xl mt-5 mb-3">
             The email confirmation link has expired. Please signup again
