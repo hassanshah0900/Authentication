@@ -73,7 +73,13 @@ export default function SigninPage({
                 ))}
             </div>
           </div>
-          <Button isPending={isPending} className="mt-8 mb-2">
+          <Link
+            className="text-end block text-blue-400 hover:text-pink-500 hover:underline transition-colors focus-visible:underline focus-visible:text-pink-500 text-sm outline-none"
+            href={"/auth/forgot-password"}
+          >
+            forgot password?
+          </Link>
+          <Button isPending={isPending} className="mt-6 mb-2">
             Sign In
           </Button>
         </form>
