@@ -8,12 +8,14 @@ import z from "zod";
 
 export interface AuthState {
   success?: boolean;
+  message?: string;
   error?: string;
   data?: FormData;
   validationErrors?: {
     name?: string[];
     email?: string[];
     password?: string[];
+    confirmPassword?: string[];
   };
 }
 
@@ -133,4 +135,68 @@ export async function signinWithProvider(providerId: "github" | "google") {
   if (error) return { error: error.code };
 
   redirect(data.url);
+}
+
+export async function forgotPassword(prevState: AuthState, formData: FormData) {
+  const emailSchema = signinSchema.shape.email;
+  const validatedEmail = emailSchema.safeParse(
+    getFormFieldValue(formData.get("email"))
+  );
+
+  if (!validatedEmail.success)
+    return {
+      data: formData,
+      validationErrors: { email: validatedEmail.error.flatten().formErrors },
+    };
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.resetPasswordForEmail(
+    validatedEmail.data
+  );
+
+  if (error) {
+    console.log(error);
+    return { error: "Couldn't send email. Please try again some time later." };
+  }
+
+  return {
+    success: true,
+    message:
+      "A link has been sent to your email. Please click the link to reset your password.",
+  };
+}
+
+const updatePasswordSchema = z
+  .object({
+    password: signinSchema.shape.password,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+export async function updatePassword(prevState: AuthState, formData: FormData) {
+  const validatedFields = updatePasswordSchema.safeParse({
+    password: getFormFieldValue(formData.get("password")),
+    confirmPassword: formData.get("confirmPassword"),
+  });
+
+  if (!validatedFields.success)
+    return {
+      data: formData,
+      validationErrors: validatedFields.error.flatten().fieldErrors,
+    };
+
+  const { password } = validatedFields.data;
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.updateUser({ password });
+
+  if (error) {
+    console.log(error);
+    return { error: "Couldn't update password. Please try again." };
+  }
+
+  return { success: true, message: "Password successful updated." };
 }
