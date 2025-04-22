@@ -4,8 +4,23 @@ import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Input from "@/components/Input";
 import { AuthState, updatePassword } from "@/lib/actions/auth-actions";
+import { redirect } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
+
+function redirectAfterTwoSeconds() {
+  setTimeout(() => {
+    toast.promise(
+      new Promise((res, rej) => {
+        setTimeout(() => {
+          res(null);
+          redirect("/welcome");
+        }, 2000);
+      }),
+      { pending: "Redirecting...", success: "Success" }
+    );
+  }, 500);
+}
 
 export default function UpdatePasswordPage() {
   const [state, formAction, isPending] = useActionState<AuthState, FormData>(
@@ -19,6 +34,7 @@ export default function UpdatePasswordPage() {
 
     if (success) {
       toast(message, { type: "success", autoClose: false });
+      redirectAfterTwoSeconds();
     }
   }, [state]);
 
