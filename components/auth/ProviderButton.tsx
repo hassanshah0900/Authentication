@@ -1,5 +1,5 @@
 import React, { useActionState, useEffect } from "react";
-import Button from "./Button";
+import Button from "../Button";
 import { signinWithProvider } from "@/lib/actions/auth-actions";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";

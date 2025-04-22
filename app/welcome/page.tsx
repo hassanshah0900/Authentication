@@ -1,6 +1,6 @@
-import DeleteAccountButton from "@/components/DeleteAccountButton";
+import DeleteAccountButton from "@/components/auth/DeleteAccountButton";
 import GradientHeading from "@/components/GradientHeading";
-import SignoutButton from "@/components/SignoutButton";
+import SignoutButton from "@/components/auth/SignoutButton";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 

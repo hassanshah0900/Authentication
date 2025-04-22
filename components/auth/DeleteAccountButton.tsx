@@ -3,7 +3,7 @@
 import { deleteAccount } from "@/lib/actions/auth-actions";
 import { useTransition } from "react";
 import { toast } from "react-toastify";
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "../ConfirmModal";
 import { supabaseErrorMap } from "@/utils/supabase/errorMap";
 
 export default function DeleteAccountButton() {

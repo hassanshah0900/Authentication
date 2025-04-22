@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useEffect } from "react";
-import Button from "./Button";
+import Button from "../Button";
 import { signout } from "@/lib/actions/auth-actions";
 import { ToastContainer, toast } from "react-toastify";
 import { supabaseErrorMap } from "@/utils/supabase/errorMap";
