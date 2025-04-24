@@ -65,7 +65,7 @@ export async function signup(prevState: AuthState, formData: FormData) {
     password,
     options: {
       data: { name },
-      emailRedirectTo: "http://localhost:3000/welcome",
+      emailRedirectTo: `${process.env.SITE_URL}/welcome`,
     },
   });
 
@@ -129,7 +129,7 @@ export async function signinWithProvider(providerId: "github" | "google") {
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: providerId,
-    options: { redirectTo: "http://localhost:3000/auth/callback" },
+    options: { redirectTo: `${process.env.SITE_URL}/auth/callback` },
   });
 
   if (error) return { error: error.code };
